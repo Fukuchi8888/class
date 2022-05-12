@@ -1,13 +1,13 @@
 #include <cstdio>
 #include <cmath>
 
-#define GLFW_INCLUDE_GLU  // GLUƒ‰ƒCƒuƒ‰ƒŠ‚ğg—p‚·‚é‚Ì‚É•K—v
+#define GLFW_INCLUDE_GLU  // GLUãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨ã™ã‚‹ã®ã«å¿…è¦
 #include <GLFW/glfw3.h>
 static const float Pi = std::atan(1.0) * 4.0;
 
-static int WIN_WIDTH = 500;                 // ƒEƒBƒ“ƒhƒE‚Ì•
-static int WIN_HEIGHT = 500;                 // ƒEƒBƒ“ƒhƒE‚Ì‚‚³
-static const char* WIN_TITLE = "OpenGL Course";     // ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹
+static int WIN_WIDTH = 500;                 // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¹…
+static int WIN_HEIGHT = 500;                 // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®é«˜ã•
+static const char* WIN_TITLE = "OpenGL Course";     // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«
 
 static const float positions[8][3] = {
     { -1.0f, -1.0f, -1.0f },
@@ -21,12 +21,12 @@ static const float positions[8][3] = {
 };
 
 static const float colors[6][3] = {
-    { 1.0f, 0.0f, 0.0f },  // Ô
-    { 0.0f, 1.0f, 0.0f },  // —Î
-    { 0.0f, 0.0f, 1.0f },  // Â
-    { 1.0f, 1.0f, 0.0f },  // ƒCƒGƒ[
-    { 0.0f, 1.0f, 1.0f },  // ƒVƒAƒ“
-    { 1.0f, 0.0f, 1.0f },  // ƒ}ƒ[ƒ“ƒ^
+    { 1.0f, 0.0f, 0.0f },  // èµ¤
+    { 0.0f, 1.0f, 0.0f },  // ç·‘
+    { 0.0f, 0.0f, 1.0f },  // é’
+    { 1.0f, 1.0f, 0.0f },  // ã‚¤ã‚¨ãƒ­ãƒ¼
+    { 0.0f, 1.0f, 1.0f },  // ã‚·ã‚¢ãƒ³
+    { 1.0f, 0.0f, 1.0f },  // ãƒã‚¼ãƒ³ã‚¿
 };
 
 static const unsigned int indices[12][3] = {
@@ -38,21 +38,21 @@ static const unsigned int indices[12][3] = {
     { 0, 2, 5 }, { 0, 5, 3 }
 };
 
-// OpenGL‚Ì‰Šú‰»ŠÖ”
+// OpenGLã®åˆæœŸåŒ–é–¢æ•°
 void initializeGL() {
-    // ”wŒiF‚Ìİ’è (•)
+    // èƒŒæ™¯è‰²ã®è¨­å®š (é»’)
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    // [“xƒeƒXƒg‚Ì—LŒø‰»
+    // æ·±åº¦ãƒ†ã‚¹ãƒˆã®æœ‰åŠ¹åŒ–
     glEnable(GL_DEPTH_TEST);
 }
 
-// OpenGL‚Ì•`‰æŠÖ”
+// OpenGLã®æç”»é–¢æ•°
 void paintGL() {
-    // ”wŒiF‚Æ[“x’l‚ÌƒNƒŠƒA
+    // èƒŒæ™¯è‰²ã¨æ·±åº¦å€¤ã®ã‚¯ãƒªã‚¢
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // À•W‚Ì•ÏŠ·
+    // åº§æ¨™ã®å¤‰æ›
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     static float siyakaku = Pi / 4;
@@ -73,9 +73,9 @@ void paintGL() {
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(3.0f, 4.0f, 5.0f,     // ‹“_‚ÌˆÊ’u
-        0.0f, 0.0f, 0.0f,     // Œ©‚Ä‚¢‚éæ
-        0.0f, 1.0f, 0.0f);    // ‹ŠE‚Ìã•ûŒü
+    gluLookAt(3.0f, 4.0f, 5.0f,     // è¦–ç‚¹ã®ä½ç½®
+        0.0f, 0.0f, 0.0f,     // è¦‹ã¦ã„ã‚‹å…ˆ
+        0.0f, 1.0f, 0.0f);    // è¦–ç•Œã®ä¸Šæ–¹å‘
 
     if ((float)WIN_WIDTH > (float)WIN_HEIGHT) {
         float zoom = (float)WIN_HEIGHT / 500;
@@ -87,7 +87,7 @@ void paintGL() {
     };
 
    
-// —§•û‘Ì‚Ì•`‰æ
+// ç«‹æ–¹ä½“ã®æç”»
     glBegin(GL_TRIANGLES);
     for (int face = 0; face < 6; face++) {
         glColor3fv(colors[face]);
@@ -104,29 +104,29 @@ void paintGL() {
 }
 
 void resizeGL(GLFWwindow* window, int width, int height) {
-    // ƒ†[ƒUŠÇ—‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğ•ÏX
+    // ãƒ¦ãƒ¼ã‚¶ç®¡ç†ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å¤‰æ›´
     WIN_WIDTH = width;
     WIN_HEIGHT = height;
 
-    // GLFWŠÇ—‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğ•ÏX
+    // GLFWç®¡ç†ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å¤‰æ›´
     glfwSetWindowSize(window, WIN_WIDTH, WIN_HEIGHT);
 
-    // ÀÛ‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY (ƒsƒNƒZƒ‹”) ‚ğæ“¾
+    // å®Ÿéš›ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º (ãƒ”ã‚¯ã‚»ãƒ«æ•°) ã‚’å–å¾—
     int renderBufferWidth, renderBufferHeight;
     glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
 
-    // ƒrƒ…[ƒ|[ƒg•ÏŠ·‚ÌXV
+    // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆå¤‰æ›ã®æ›´æ–°
     glViewport(0, 0, renderBufferWidth, renderBufferHeight);
 }
 
 int main(int argc, char** argv) {
-    // OpenGL‚ğ‰Šú‰»‚·‚é
+    // OpenGLã‚’åˆæœŸåŒ–ã™ã‚‹
     if (glfwInit() == GL_FALSE) {
         fprintf(stderr, "Initialization failed!\n");
         return 1;
     }
 
-    // Window‚Ìì¬
+    // Windowã®ä½œæˆ
     GLFWwindow* window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE, NULL, NULL);
     if (window == NULL) {
         fprintf(stderr, "Window creation failed!");
@@ -134,21 +134,21 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // OpenGL‚Ì•`‰æ‘ÎÛ‚ÉWindow‚ğ’Ç‰Á
+    // OpenGLã®æç”»å¯¾è±¡ã«Windowã‚’è¿½åŠ 
     glfwMakeContextCurrent(window);
 
-    // ƒEƒBƒ“ƒhƒE‚ÌƒŠƒTƒCƒY‚ğˆµ‚¤ŠÖ”‚Ì“o˜^
+    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒªã‚µã‚¤ã‚ºã‚’æ‰±ã†é–¢æ•°ã®ç™»éŒ²
     glfwSetWindowSizeCallback(window, resizeGL);
 
-    // OpenGL‚ğ‰Šú‰»
+    // OpenGLã‚’åˆæœŸåŒ–
     initializeGL();
 
-    // ƒƒCƒ“ƒ‹[ƒv
+    // ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
     while (glfwWindowShouldClose(window) == GL_FALSE) {
-        // •`‰æ
+        // æç”»
         paintGL();
 
-        // •`‰æ—pƒoƒbƒtƒ@‚ÌØ‚è‘Ö‚¦
+        // æç”»ç”¨ãƒãƒƒãƒ•ã‚¡ã®åˆ‡ã‚Šæ›¿ãˆ
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
