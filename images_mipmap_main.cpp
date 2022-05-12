@@ -2,7 +2,7 @@
 #include <cmath>
 #include <string>
 
-#define GLFW_INCLUDE_GLU  // GLUƒ‰ƒCƒuƒ‰ƒŠ‚ğg—p‚·‚é‚Ì‚É•K—v
+#define GLFW_INCLUDE_GLU  // GLUãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ä½¿ç”¨ã™ã‚‹ã®ã«å¿…è¦
 #include <GLFW/glfw3.h>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -10,11 +10,11 @@
 
 #include "common.h"
 
-static int WIN_WIDTH = 500;                 // ƒEƒBƒ“ƒhƒE‚Ì•
-static int WIN_HEIGHT = 500;                 // ƒEƒBƒ“ƒhƒE‚Ì‚‚³
-static const char* WIN_TITLE = "OpenGL Course";     // ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹
+static int WIN_WIDTH = 500;                 // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¹…
+static int WIN_HEIGHT = 500;                 // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®é«˜ã•
+static const char* WIN_TITLE = "OpenGL Course";     // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«
 
-static const double PI = 4.0 * atan(1.0);           // ‰~ü—¦‚Ì’è‹`
+static const double PI = 4.0 * atan(1.0);           // å††å‘¨ç‡ã®å®šç¾©
 
 static float theta = 0.0f;
 
@@ -45,25 +45,25 @@ static const unsigned int indices[2][3] = {
     { 0, 1, 3 }, { 0, 3, 2 }
 };
 
-// OpenGL‚Ì‰Šú‰»ŠÖ”
+// OpenGLã®åˆæœŸåŒ–é–¢æ•°
 void initializeGL() {
-    // ”wŒiF‚Ìİ’è (•)
+    // èƒŒæ™¯è‰²ã®è¨­å®š (é»’)
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    // [“xƒeƒXƒg‚Ì—LŒø‰»
+    // æ·±åº¦ãƒ†ã‚¹ãƒˆã®æœ‰åŠ¹åŒ–
     glEnable(GL_DEPTH_TEST);
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ì—LŒø‰»
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æœ‰åŠ¹åŒ–
     glEnable(GL_TEXTURE_2D);
 
     
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ì¶¬‚Æ—LŒø‰»
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç”Ÿæˆã¨æœ‰åŠ¹åŒ–
     glGenTextures(1, &textureId);
     glBindTexture(GL_TEXTURE_2D, textureId);
 
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
     int texWidth0, texHeight0, channels0;
     unsigned char* bytes0 = stbi_load(TEX_FILE0.c_str(), &texWidth0, &texHeight0, &channels0, STBI_rgb_alpha);
     if (!bytes0) {
@@ -92,7 +92,7 @@ void initializeGL() {
         exit(1);
     }
 
-    // ’Pƒ‚ÈƒeƒNƒXƒ`ƒƒ‚Ì“]‘—
+    // å˜ç´”ãªãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è»¢é€
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 256, 256,
         0, GL_RGBA, GL_UNSIGNED_BYTE, bytes0);
@@ -123,44 +123,44 @@ void initializeGL() {
 
 
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ì‰æ‘f’lQÆ•û–@‚Ìİ’è (MIP map‚ ‚è)
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç”»ç´ å€¤å‚ç…§æ–¹æ³•ã®è¨­å®š (MIP mapã‚ã‚Š)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-    // ƒeƒNƒXƒ`ƒƒ‹«ŠE‚ÌÜ‚è•Ô‚µİ’è
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£å¢ƒç•Œã®æŠ˜ã‚Šè¿”ã—è¨­å®š
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ì–³Œø‰»
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç„¡åŠ¹åŒ–
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    // ƒ[ƒh‚µ‚½‰æ‘fî•ñ‚Ì”jŠü
+    // ãƒ­ãƒ¼ãƒ‰ã—ãŸç”»ç´ æƒ…å ±ã®ç ´æ£„
     stbi_image_free(bytes0);
     stbi_image_free(bytes1);
     stbi_image_free(bytes2);
     stbi_image_free(bytes3);
 }
 
-// OpenGL‚Ì•`‰æŠÖ”
+// OpenGLã®æç”»é–¢æ•°
 void paintGL() {
-    // ”wŒiF‚Æ[“x’l‚ÌƒNƒŠƒA
+    // èƒŒæ™¯è‰²ã¨æ·±åº¦å€¤ã®ã‚¯ãƒªã‚¢
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // À•W‚Ì•ÏŠ·
+    // åº§æ¨™ã®å¤‰æ›
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(60.0f, (float)WIN_WIDTH / (float)WIN_HEIGHT, 0.1f, 1000.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0f, 3.0f, 5.0f,     // ‹“_‚ÌˆÊ’u
-        0.0f, 0.0f, 0.0f,     // Œ©‚Ä‚¢‚éæ
-        0.0f, 1.0f, 0.0f);    // ‹ŠE‚Ìã•ûŒü
+    gluLookAt(0.0f, 3.0f, 5.0f,     // è¦–ç‚¹ã®ä½ç½®
+        0.0f, 0.0f, 0.0f,     // è¦‹ã¦ã„ã‚‹å…ˆ
+        0.0f, 1.0f, 0.0f);    // è¦–ç•Œã®ä¸Šæ–¹å‘
 
-    glTranslatef(0.0f, 0.0f, std::cos(PI * theta / 180.0f) * 4.0f - 2.0f); // ‘OŒã•ûŒü‚ÉˆÚ“®
-    glRotatef(theta, 0.0f, 1.0f, 0.0f);  // y²’†S‚Étheta‚¾‚¯‰ñ“]
+    glTranslatef(0.0f, 0.0f, std::cos(PI * theta / 180.0f) * 4.0f - 2.0f); // å‰å¾Œæ–¹å‘ã«ç§»å‹•
+    glRotatef(theta, 0.0f, 1.0f, 0.0f);  // yè»¸ä¸­å¿ƒã«thetaã ã‘å›è»¢
 
-    // —§•û‘Ì‚Ì•`‰æ
+    // ç«‹æ–¹ä½“ã®æç”»
     glBindTexture(GL_TEXTURE_2D, textureId);
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < 3; i++) {
@@ -178,34 +178,34 @@ void paintGL() {
 }
 
 void resizeGL(GLFWwindow* window, int width, int height) {
-    // ƒ†[ƒUŠÇ—‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğ•ÏX
+    // ãƒ¦ãƒ¼ã‚¶ç®¡ç†ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å¤‰æ›´
     WIN_WIDTH = width;
     WIN_HEIGHT = height;
 
-    // GLFWŠÇ—‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğ•ÏX
+    // GLFWç®¡ç†ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’å¤‰æ›´
     glfwSetWindowSize(window, WIN_WIDTH, WIN_HEIGHT);
 
-    // ÀÛ‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY (ƒsƒNƒZƒ‹”) ‚ğæ“¾
+    // å®Ÿéš›ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º (ãƒ”ã‚¯ã‚»ãƒ«æ•°) ã‚’å–å¾—
     int renderBufferWidth, renderBufferHeight;
     glfwGetFramebufferSize(window, &renderBufferWidth, &renderBufferHeight);
 
-    // ƒrƒ…[ƒ|[ƒg•ÏŠ·‚ÌXV
+    // ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆå¤‰æ›ã®æ›´æ–°
     glViewport(0, 0, renderBufferWidth, renderBufferHeight);
 }
 
-// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‚½‚ß‚ÌƒAƒbƒvƒf[ƒg
+// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãŸã‚ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
 void animate() {
-    theta += 0.1f;  // 1“x‚¾‚¯‰ñ“]
+    theta += 0.1f;  // 1åº¦ã ã‘å›è»¢
 }
 
 int main(int argc, char** argv) {
-    // OpenGL‚ğ‰Šú‰»‚·‚é
+    // OpenGLã‚’åˆæœŸåŒ–ã™ã‚‹
     if (glfwInit() == GL_FALSE) {
         fprintf(stderr, "Initialization failed!\n");
         return 1;
     }
 
-    // Window‚Ìì¬
+    // Windowã®ä½œæˆ
     GLFWwindow* window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE,
         NULL, NULL);
     if (window == NULL) {
@@ -214,24 +214,24 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // OpenGL‚Ì•`‰æ‘ÎÛ‚ÉWindow‚ğ’Ç‰Á
+    // OpenGLã®æç”»å¯¾è±¡ã«Windowã‚’è¿½åŠ 
     glfwMakeContextCurrent(window);
 
-    // ƒEƒBƒ“ƒhƒE‚ÌƒŠƒTƒCƒY‚ğˆµ‚¤ŠÖ”‚Ì“o˜^
+    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒªã‚µã‚¤ã‚ºã‚’æ‰±ã†é–¢æ•°ã®ç™»éŒ²
     glfwSetWindowSizeCallback(window, resizeGL);
 
-    // OpenGL‚ğ‰Šú‰»
+    // OpenGLã‚’åˆæœŸåŒ–
     initializeGL();
 
-    // ƒƒCƒ“ƒ‹[ƒv
+    // ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
     while (glfwWindowShouldClose(window) == GL_FALSE) {
-        // •`‰æ
+        // æç”»
         paintGL();
 
-        // ƒAƒjƒ[ƒVƒ‡ƒ“
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
         animate();
 
-        // •`‰æ—pƒoƒbƒtƒ@‚ÌØ‚è‘Ö‚¦
+        // æç”»ç”¨ãƒãƒƒãƒ•ã‚¡ã®åˆ‡ã‚Šæ›¿ãˆ
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
